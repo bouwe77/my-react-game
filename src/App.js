@@ -4,11 +4,17 @@ import { getMaze } from "./mazes";
 import Buttons from "./Buttons";
 import GameOver from "./GameOver";
 import { useInterval } from "./useInterval";
+import { useKeyPress } from "./useKeyPress";
 
 function App() {
   const [maze, setMaze] = useState(getMaze);
   const [score, setScore] = useState(0);
   const [direction, setDirection] = useState(directions.IDLE);
+
+  useKeyPress("ArrowUp", () => setDirection(directions.UP));
+  useKeyPress("ArrowDown", () => setDirection(directions.DOWN));
+  useKeyPress("ArrowLeft", () => setDirection(directions.LEFT));
+  useKeyPress("ArrowRight", () => setDirection(directions.RIGHT));
 
   useInterval(() => {
     if (maze.reachedExit || direction === directions.IDLE) return;
